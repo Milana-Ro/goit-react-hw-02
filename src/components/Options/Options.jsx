@@ -1,12 +1,25 @@
 import styles from "./Options.module.css";
 
-const Options = () => {
+const Options = ({ updateFeedback, resetFeedback, totalFeedback }) => {
+  const handleClick = (evt) => {
+    updateFeedback(evt.target.name);
+  };
+  const renderResetBtn = !!totalFeedback && (
+    <button onClick={resetFeedback}>Reset</button>
+  );
+
   return (
     <>
-      <button>Good</button>
-      <button>Neutral</button>
-      <button>Bad</button>
-      <button>Reset</button>
+      <button name="good" onClick={handleClick}>
+        Good
+      </button>
+      <button name="neutral" onClick={handleClick}>
+        Neutral
+      </button>
+      <button name="bad" onClick={handleClick}>
+        Bad
+      </button>
+      {renderResetBtn}
     </>
   );
 };
