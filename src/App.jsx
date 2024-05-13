@@ -12,9 +12,14 @@ const INITIAL_FEEDBACK_TYPES = {
   neutral: 0,
   bad: 0,
 };
+const FEEDBACK_STORAGE_KEY = "feedbacks";
+const feedbacksFromLocalStorage = JSON.parse(
+  localStorage.getItem(FEEDBACK_STORAGE_KEY)
+);
+const currentFeedbacks = feedbacksFromLocalStorage || INITIAL_FEEDBACK_TYPES;
 
 function App() {
-  const [feedbacks, setFeedbacks] = useState(INITIAL_FEEDBACK_TYPES);
+  const [feedbacks, setFeedbacks] = useState(currentFeedbacks);
   const { good, neutral, bad } = feedbacks;
   const totalFeedback = good + neutral + bad;
 
@@ -22,12 +27,18 @@ function App() {
     setFeedbacks((prevValue) => {
       const newValue = { ...prevValue };
       newValue[feedbackType] += 1;
+
+      localStorage.setItem(FEEDBACK_STORAGE_KEY, JSON.stringify(newValue));
       return newValue;
     });
   };
 
   const resetFeedback = () => {
     setFeedbacks(INITIAL_FEEDBACK_TYPES);
+    localStorage.setItem(
+      FEEDBACK_STORAGE_KEY,
+      JSON.stringify(INITIAL_FEEDBACK_TYPES)
+    );
   };
 
   return (

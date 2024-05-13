@@ -5,22 +5,24 @@ const Options = ({ updateFeedback, resetFeedback, totalFeedback }) => {
     updateFeedback(evt.target.name);
   };
   const renderResetBtn = !!totalFeedback && (
-    <button onClick={resetFeedback}>Reset</button>
+    <button className={styles.button} onClick={resetFeedback}>
+      Reset
+    </button>
   );
 
   return (
-    <>
-      <button name="good" onClick={handleClick}>
+    <div className={styles.btnWrapper}>
+      <button name="good" className={styles.button} onClick={handleClick}>
         Good
       </button>
-      <button name="neutral" onClick={handleClick}>
+      <button name="neutral" className={styles.button} onClick={handleClick}>
         Neutral
       </button>
-      <button name="bad" onClick={handleClick}>
+      <button name="bad" className={styles.button} onClick={handleClick}>
         Bad
       </button>
       {renderResetBtn}
-    </>
+    </div>
   );
 };
 
